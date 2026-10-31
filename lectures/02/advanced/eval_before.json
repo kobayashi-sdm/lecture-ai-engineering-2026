@@ -1,0 +1,212 @@
+{
+  "summary": {
+    "label": "before",
+    "n": 18,
+    "format_rate": 0.9444444444444444,
+    "content_rate": 0.0,
+    "both_rate": 0.0,
+    "categories": {
+      "用語あり": {
+        "n": 6,
+        "format_rate": 1.0,
+        "content_rate": 0.0,
+        "both_rate": 0.0
+      },
+      "用語集外": {
+        "n": 6,
+        "format_rate": 0.8333333333333334,
+        "content_rate": 0.0,
+        "both_rate": 0.0
+      },
+      "言い換え": {
+        "n": 6,
+        "format_rate": 1.0,
+        "content_rate": 0.0,
+        "both_rate": 0.0
+      }
+    },
+    "seconds": 79.86
+  },
+  "rows": [
+    {
+      "question": "用語集の「LoRA」の定義を教えてください。",
+      "category": "用語あり",
+      "term_id": "lora",
+      "raw": "{\"answer\": \"LoRA (Low-Rank Adaptation) は、大規模言語モデル（LLM）の出力を、より短縮された低秩なベクトル（LoRA 向量）に再構成して、より効率的に学習させる技術です。従来の全パラメータを学習するのではなく、学習した部分だけを LoRA 向量に追加することで、計算コストを大幅に削減し、モデルの柔軟性を向上させる方法です。\", \"needs_review\": false}",
+      "format_ok": true,
+      "content_ok": false,
+      "both_ok": false,
+      "classification": "asserted"
+    },
+    {
+      "question": "元の重みを変えずに、低ランクの行列だけを学習する方法を説明してください。",
+      "category": "言い換え",
+      "term_id": "lora",
+      "raw": "{\"answer\": \"元の重みを変えずに、低ランクの行列だけを学習する方法は、低ランクの行列を学習対象とする「低ランク学習」または「低ランク学習の適用」です。これは、学習アルゴリズムの学習対象を低ランクのデータセットに限定し、その低ランクのデータセットから学習したモデルを適用する手法です。\", \"needs_review\": false}",
+      "format_ok": true,
+      "content_ok": false,
+      "both_ok": false,
+      "classification": "asserted"
+    },
+    {
+      "question": "用語集の「QLoRA」の定義を教えてください。",
+      "category": "用語あり",
+      "term_id": "qlora",
+      "raw": "{\"answer\": \"QLoRA は、Qwen3.5 の言語モデルの一種であり、Qwen3.5 のベースモデルである Qwen3.5 を拡張・強化するための新しいモデルです。\", \"needs_review\": false}",
+      "format_ok": true,
+      "content_ok": false,
+      "both_ok": false,
+      "classification": "asserted"
+    },
+    {
+      "question": "4ビットに圧縮した重みの上にLoRAを付ける方法は何ですか？",
+      "category": "言い換え",
+      "term_id": "qlora",
+      "raw": "{\"answer\": \"LoRA（低秩変換）は、4 次元のベクトル（4 つの重み）を 2 つの低次元ベクトル（2 つのロア）に分解して適用する手法です。具体的には、元の 4 次元ベクトルを 2 つの 2 次元ベクトル（ロア）に分解し、そのロアを元の重みに適用することで、元の重みに近づくように変換を行います。このプロセスは、元の重みとロアの間の距離を最小化します。\", \"needs_review\": false}",
+      "format_ok": true,
+      "content_ok": false,
+      "both_ok": false,
+      "classification": "asserted"
+    },
+    {
+      "question": "用語集の「過学習」の定義を教えてください。",
+      "category": "用語あり",
+      "term_id": "overfitting",
+      "raw": "{\"answer\": \"過学習とは、学習モデルが訓練データに過度に習得し、テストデータに適用できない現象です。学習アルゴリズムが学習データに過剰に学習し、テストデータに適用できない現象を指します。\", \"needs_review\": false}",
+      "format_ok": true,
+      "content_ok": false,
+      "both_ok": false,
+      "classification": "asserted"
+    },
+    {
+      "question": "訓練用の例だけに適合して、初めての入力で成績が落ちる状態とは？",
+      "category": "言い換え",
+      "term_id": "overfitting",
+      "raw": "{\"answer\": \"訓練用の例だけに適合して、初めての入力で成績が落ちる状態とは「訓練用の例に適合して初めて成績が落ちる状態」です。\", \"needs_review\": false}",
+      "format_ok": true,
+      "content_ok": false,
+      "both_ok": false,
+      "classification": "asserted"
+    },
+    {
+      "question": "用語集の「学習率」の定義を教えてください。",
+      "category": "用語あり",
+      "term_id": "learning-rate",
+      "raw": "{\"answer\": \"学習率（Learning Rate）は、ニューラルネットワークや機械学習アルゴリズムにおいて、入力データに対して出力を調整する際に使用するパラメータの調整速度です。学習率が小さければ、モデルはより多くのデータに学習し、学習速度が速くなりますが、学習率が大きければ、モデルは学習速度が遅くなり、過学習（Overfitting）のリスクが高まります。\", \"needs_review\": false}",
+      "format_ok": true,
+      "content_ok": false,
+      "both_ok": false,
+      "classification": "asserted"
+    },
+    {
+      "question": "learning rateが大きすぎる場合と小さすぎる場合の違いを教えてください。",
+      "category": "言い換え",
+      "term_id": "learning-rate",
+      "raw": "{\"answer\": \"学習率（learning rate）は、モデルの学習速度を制御するパラメータです。学習率が大きすぎると、モデルが過学習しやすくなり、訓練が不安定になり、最終的な精度が低下する可能性があります。一方、学習率が小さすぎると、学習が非常にゆっくりになり、訓練が非常に長引く場合や、学習が停滞する可能性があります。最適な学習率は、モデルの複雑さやデータ量に応じて調整する必要があります。\", \"needs_review\": false}",
+      "format_ok": true,
+      "content_ok": false,
+      "both_ok": false,
+      "classification": "asserted"
+    },
+    {
+      "question": "用語集の「エポック」の定義を教えてください。",
+      "category": "用語あり",
+      "term_id": "epoch",
+      "raw": "{\"answer\": \"エポック（Epoch）は、コンピュータのシステムにおいて、1 つの計算プロセスが完了し、次の計算プロセスを開始する点です。例えば、CPU の処理サイクル（サイクル）が完了した瞬間、エポックが定義されます。\", \"needs_review\": false}",
+      "format_ok": true,
+      "content_ok": false,
+      "both_ok": false,
+      "classification": "asserted"
+    },
+    {
+      "question": "epochは学習データを何回使ったかとどう関係しますか？",
+      "category": "言い換え",
+      "term_id": "epoch",
+      "raw": "{\"answer\": \"epoch は学習データの回数を指し、学習プロセスの回数を表します。学習データが 100 回使用された場合、epoch は 100 回になります。\", \"needs_review\": false}",
+      "format_ok": true,
+      "content_ok": false,
+      "both_ok": false,
+      "classification": "asserted"
+    },
+    {
+      "question": "用語集の「コンテキストウィンドウ」の定義を教えてください。",
+      "category": "用語あり",
+      "term_id": "context-window",
+      "raw": "{\"answer\": \"コンテキストウィンドウは、テキストエディタやテキスト入力システムにおいて、ユーザーが特定の文脈（例：文章、メール、チャット、コードなど）を編集・入力する際に、その文脈に関連する情報（例：行番号、行番号の範囲、関連するテキスト、検索結果など）を表示するウィンドウです。\", \"needs_review\": false}",
+      "format_ok": true,
+      "content_ok": false,
+      "both_ok": false,
+      "classification": "asserted"
+    },
+    {
+      "question": "context windowに会話履歴も収める必要があるのはなぜですか？",
+      "category": "言い換え",
+      "term_id": "context-window",
+      "raw": "{\"answer\": \"会話履歴を収めることで、モデルが過去の会話内容やユーザーの発言パターンを学習・記憶し、次の質問に対してより適切な回答を生成する際に、知識ベースとして利用しやすくなります。\", \"needs_review\": false}",
+      "format_ok": true,
+      "content_ok": false,
+      "both_ok": false,
+      "classification": "asserted"
+    },
+    {
+      "question": "用語集の「BERT」の定義を教えてください。",
+      "category": "用語集外",
+      "term_id": null,
+      "raw": "{\"answer\": \"BERT（Bidirectional Encoder Representations from Transformers）は、自然言語処理において、文脈を考慮して単語の意味や文脈を学習する Transformer モデルの一種です。特に、文脈を考慮して単語の意味や文脈を学習する Transformer モデルの一種です。\", \"needs_review\": false}",
+      "format_ok": true,
+      "content_ok": false,
+      "both_ok": false,
+      "classification": "asserted"
+    },
+    {
+      "question": "用語集の「ベクトルデータベース」の定義を教えてください。",
+      "category": "用語集外",
+      "term_id": null,
+      "raw": "{\"answer\": \"ベクトルデータベースは、データが数値型ではなく、ベクトル（列）の形式で保存・操作されるデータベースです。これにより、データの次元を1次元から多次元へ拡張し、高次元データ（例：画像、音声、動画）の処理や、複雑な計算（ベクトル演算）が可能になります。\", \"needs_review\": false}",
+      "format_ok": true,
+      "content_ok": false,
+      "both_ok": false,
+      "classification": "asserted"
+    },
+    {
+      "question": "用語集の「DPO」の定義を教えてください。",
+      "category": "用語集外",
+      "term_id": null,
+      "raw": "{\"answer\": \"DPO (Direct Preference Optimization) は、学習の初期段階において、学習者が選択した選択肢（DPO）に対して、学習者が選択した選択肢（DPO）に対して、学習者が選択した選択肢（DPO）に対して、学習者が選択した選択肢（DPO）に対して、学習者が選択した選択肢（DPO）に対して、学習者が選択した選択肢（DPO）に対して、学習者が選択した選択肢（DPO）に対して、学習者が選択した選択肢（DPO）に対して、学習者が選択した選択肢（DPO）に対して、学習者が選択した選択肢（DPO）に対して、学習者が選択した選択肢（DPO）に対して、学習者が選択した選択肢（DPO）に対して、学習者が選択した選択肢（DPO）に対して、学習者が選択した選択肢（DPO）に対して、学習者が選択した選択肢（DPO）に対して、学習者が選択した選択肢（DPO）に対して、学習者が選択した選択肢（DPO）に対して、学習者が選択した選択肢（DPO）に対して、学習者が選択した選択肢（DPO）に対して、学習者が選択した選択肢（DPO）に対して、学習者が選択した選択肢（DPO）に対して、学習者が選択した選択肢（",
+      "format_ok": false,
+      "content_ok": false,
+      "both_ok": false,
+      "classification": "format_error"
+    },
+    {
+      "question": "用語集の「RLHF」の定義を教えてください。",
+      "category": "用語集外",
+      "term_id": null,
+      "raw": "{\"answer\": \"RLHF（Reinforcement Learning from Human Feedback）は、人間のフィードバックに基づいて大規模言語モデル（LLM）や他の AI モデルの出力を最適化する手法です。学習プロセスでは、人間がモデルの回答に対して評価を行い、その評価に基づいてモデルの出力を修正・再学習する仕組みです。\", \"needs_review\": false}",
+      "format_ok": true,
+      "content_ok": false,
+      "both_ok": false,
+      "classification": "asserted"
+    },
+    {
+      "question": "用語集の「MoE」の定義を教えてください。",
+      "category": "用語集外",
+      "term_id": null,
+      "raw": "{\"answer\": \"MoE（Mixture of Experts）は、大規模言語モデル（LLM）の一種で、複数の専門知識を個別に学習し、その知識を組み合わせるアプローチです。モデルは複数の「エンプト（Expert）」を構成し、各エンプトが特定の知識領域に特化して学習することで、より高い精度と効率を実現します。\", \"needs_review\": false}",
+      "format_ok": true,
+      "content_ok": false,
+      "both_ok": false,
+      "classification": "asserted"
+    },
+    {
+      "question": "用語集の「破滅的忘却」の定義を教えてください。",
+      "category": "用語集外",
+      "term_id": null,
+      "raw": "{\"answer\": \"破滅的忘却（Nihilism）は、ある種の無意識な忘却や忘却の忘却を指し、その結果として存在や意識が消滅する状態を意味します。これは、ある種の無意識な忘却や忘却の忘却を指し、その結果として存在や意識が消滅する状態を意味します。\", \"needs_review\": false}",
+      "format_ok": true,
+      "content_ok": false,
+      "both_ok": false,
+      "classification": "asserted"
+    }
+  ]
+}

@@ -1,0 +1,163 @@
+{
+  "config": {
+    "base_model": "Qwen/Qwen3.5-0.8B",
+    "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+    "seed": 42,
+    "num_train_epochs": 3,
+    "warmup_steps": 6,
+    "lr": 0.0002,
+    "lora_r": 16,
+    "lora_alpha": 32,
+    "max_seq_len": 512,
+    "max_new_tokens": 256,
+    "gen": {
+      "do_sample": false
+    },
+    "work_dir": "/content/lesson02_advanced",
+    "drive_dir": "/content/drive/MyDrive/aie2026/lesson02_advanced"
+  },
+  "versions": {
+    "transformers": "5.18.0",
+    "peft": "0.21.1",
+    "trl": "1.14.2",
+    "accelerate": "1.15.0",
+    "datasets": "5.1.0",
+    "torch": "2.11.0+cu130"
+  },
+  "method": "LoRA（量子化なし）",
+  "provenance": {
+    "source_repository": "https://github.com/matsuolab/lecture-ai-engineering-2026",
+    "source_commit": "c17c00e940143e5af03b228d2aac61c5af492bf9",
+    "glossary_terms": 58,
+    "raw_examples": 116,
+    "train": 120,
+    "valid": 60,
+    "test": 18,
+    "local_training_executed": false,
+    "generation": "講座スクリプトを変更せずPython標準ライブラリで実行（uv run と同じmain処理）",
+    "sha256": {
+      "glossary_sft.jsonl": "af6ac820e0331d8d9af376e3b4cccff1b31f2f0f8bb462839752e3282bbd1081",
+      "gold.json": "02819036cf7ee4ff1f8cbd6cd15e402446ebe97b1aba03da7b522ef28e292b4a",
+      "test.jsonl": "cf93dc41fef804723b96086148e8483a62d85c66a24bf3de4a9c7a4769403b34",
+      "train.jsonl": "cebeb3729e7c10d81d2ec89ace912624af3d411806080406be8de3b434f04690",
+      "valid.jsonl": "0472467d498e2498b98177808bfb18413fe2f74366d5de2790dd1ee835ddd1e8"
+    }
+  },
+  "before": {
+    "label": "before",
+    "n": 18,
+    "format_rate": 0.9444444444444444,
+    "content_rate": 0.0,
+    "both_rate": 0.0,
+    "categories": {
+      "用語あり": {
+        "n": 6,
+        "format_rate": 1.0,
+        "content_rate": 0.0,
+        "both_rate": 0.0
+      },
+      "用語集外": {
+        "n": 6,
+        "format_rate": 0.8333333333333334,
+        "content_rate": 0.0,
+        "both_rate": 0.0
+      },
+      "言い換え": {
+        "n": 6,
+        "format_rate": 1.0,
+        "content_rate": 0.0,
+        "both_rate": 0.0
+      }
+    },
+    "seconds": 79.86
+  },
+  "after": {
+    "label": "after",
+    "n": 18,
+    "format_rate": 1.0,
+    "content_rate": 0.16666666666666666,
+    "both_rate": 0.16666666666666666,
+    "categories": {
+      "用語あり": {
+        "n": 6,
+        "format_rate": 1.0,
+        "content_rate": 0.16666666666666666,
+        "both_rate": 0.16666666666666666
+      },
+      "用語集外": {
+        "n": 6,
+        "format_rate": 1.0,
+        "content_rate": 0.0,
+        "both_rate": 0.0
+      },
+      "言い換え": {
+        "n": 6,
+        "format_rate": 1.0,
+        "content_rate": 0.3333333333333333,
+        "both_rate": 0.3333333333333333
+      }
+    },
+    "seconds": 70.9
+  },
+  "retrieval_base": {
+    "label": "retrieval_base",
+    "n": 18,
+    "format_rate": 1.0,
+    "content_rate": 0.4444444444444444,
+    "both_rate": 0.4444444444444444,
+    "categories": {
+      "用語あり": {
+        "n": 6,
+        "format_rate": 1.0,
+        "content_rate": 0.6666666666666666,
+        "both_rate": 0.6666666666666666
+      },
+      "用語集外": {
+        "n": 6,
+        "format_rate": 1.0,
+        "content_rate": 0.0,
+        "both_rate": 0.0
+      },
+      "言い換え": {
+        "n": 6,
+        "format_rate": 1.0,
+        "content_rate": 0.6666666666666666,
+        "both_rate": 0.6666666666666666
+      }
+    },
+    "seconds": 65.08
+  },
+  "lookup_only": {
+    "label": "lookup_only",
+    "n": 18,
+    "format_rate": 1.0,
+    "content_rate": 0.8333333333333334,
+    "both_rate": 0.8333333333333334,
+    "categories": {
+      "用語あり": {
+        "n": 6,
+        "format_rate": 1.0,
+        "content_rate": 1.0,
+        "both_rate": 1.0
+      },
+      "用語集外": {
+        "n": 6,
+        "format_rate": 1.0,
+        "content_rate": 1.0,
+        "both_rate": 1.0
+      },
+      "言い換え": {
+        "n": 6,
+        "format_rate": 1.0,
+        "content_rate": 0.5,
+        "both_rate": 0.5
+      }
+    }
+  },
+  "regressed": [],
+  "training_seconds": 218.753685958,
+  "training_steps": 45,
+  "train_loss_mean": 1.162723610136244,
+  "last_logged_loss": 0.6781378269195557,
+  "executed_training_myself": true
+}
