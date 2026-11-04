@@ -1,0 +1,12 @@
+[model] gemini-3.5-flash-lite
+第2回からの確認問題です！
+
+**問題：**
+「QLoRA」とはどのような手法ですか？
+
+（第2回）
+
+--- trace ---
+[tool call]   make_quiz({'lecture': 2})
+[tool return] make_quiz -> {"question": "「QLoRA」の意味は？", "answer": "ベースモデルの重みを4ビットなどに量子化してメモリを節約したうえで、LoRAで学習する手法。より大きなモデルを小さなGPUで扱える。本講座の第2回演習ではモデル…
+[usage] RunUsage(cost=Decimal('0.0005441'), details={'text_prompt_tokens': 1447}, input_text_tokens=1447, input_tokens=1447, output_tokens=44, requests=2, tool_calls=1)

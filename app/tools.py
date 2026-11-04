@@ -5,10 +5,14 @@
 """
 
 import json
+import random
+from datetime import datetime, timezone
 from functools import cache
 from pathlib import Path
+from uuid import uuid4
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
+LEARNING_LOG_DIR = Path(__file__).resolve().parent.parent / "learning_log"
 MAX_RESULTS = 3
 
 
@@ -77,3 +81,50 @@ def get_lecture_summary(lecture: int) -> str:
         available = sorted(p.stem for p in (DATA_DIR / "lectures").glob("*.md"))
         return f"第{lecture}回の要点はまだありません。用意されている回: {', '.join(available)}"
     return path.read_text(encoding="utf-8")
+
+
+def make_quiz(lecture: int) -> str:
+    """指定した回の用語から1つを選び、確認問題と答えを返す。
+
+    「第2回の確認問題を出して」のように、復習用の問題を求められたときに使う。
+    lecture には講義の回を1始まりの整数で指定する。
+    """
+    entries = [entry for entry in load_glossary() if entry["lecture"] == lecture]
+    if not entries:
+        return json.dumps(
+            {"error": f"第{lecture}回の用語は用語集にありません。"}, ensure_ascii=False
+        )
+    entry = random.choice(entries)
+    return json.dumps(
+        {"question": f"「{entry['term']}」の意味は？", "answer": entry["definition"]},
+        ensure_ascii=False,
+    )
+
+
+def save_learning_log(lecture: int, content: str) -> str:
+    """利用者が保存を依頼した学習内容を learning_log/ にJSONで新規保存する。
+
+    「第3回で学んだことを記録して」のように、学習記録の保存を明示的に
+    求められたときに使う。lecture は1始まりの講義回、content は保存する
+    学習内容。内容が曖昧なら先に利用者に確認する。呼び出しはCLIでの承認待ちに
+    なり、利用者が承認した場合だけ実行される。保存先と日時はプログラムが決める。
+    """
+    if type(lecture) is not int or lecture < 1:
+        return json.dumps({"status": "error", "error": "講義回は1以上の整数を指定してください。"}, ensure_ascii=False)
+    if not content.strip():
+        return json.dumps({"status": "error", "error": "学習内容が空です。"}, ensure_ascii=False)
+
+    now = datetime.now(timezone.utc)
+    record = {"lecture": lecture, "content": content, "saved_at": now.isoformat()}
+    filename = f"{now:%Y%m%dT%H%M%S%fZ}_{uuid4().hex}.json"
+    try:
+        if LEARNING_LOG_DIR.is_symlink():
+            return json.dumps({"status": "error", "error": "保存先にシンボリックリンクは使えません。"}, ensure_ascii=False)
+        LEARNING_LOG_DIR.mkdir(parents=True, exist_ok=True)
+        with (LEARNING_LOG_DIR / filename).open("x", encoding="utf-8") as stream:
+            stream.write(json.dumps(record, ensure_ascii=False, indent=2) + "\n")
+    except OSError:
+        return json.dumps({"status": "error", "error": "学習記録を保存できませんでした。保存先と書き込み権限を確認してください。"}, ensure_ascii=False)
+    return json.dumps(
+        {"status": "saved", "path": f"learning_log/{filename}", **record}, ensure_ascii=False
+    )
