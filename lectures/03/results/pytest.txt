@@ -1,0 +1,3 @@
+$ PATH="$PWD/.venv/bin:$PATH" PYDANTIC_AI_NO_BANNER=1 .venv/bin/python -m pytest -q
+..................................                                       [100%]
+34 passed in 1.98s

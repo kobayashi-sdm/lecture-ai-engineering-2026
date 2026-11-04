@@ -1,0 +1,124 @@
+{
+  "executed_at": "2026-11-04T20:07:55.597643+00:00",
+  "mode": "APIなし。FunctionModelでツール呼び出しを固定し、承認・保存・再開は実際のコードを実行。",
+  "python": "3.12.14",
+  "pydantic_ai": "2.57.0",
+  "google_genai": "2.31.0",
+  "live_gemini_executed": false,
+  "exercise": {
+    "homework_levels": {
+      "requests": 2,
+      "tool_calls": 1,
+      "calls": [
+        {
+          "name": "search_glossary",
+          "args": {
+            "query": "3レベル"
+          },
+          "id": "levels"
+        }
+      ],
+      "output": "[{\"term\": \"宿題の3レベル\", \"lecture\": 1, \"definition\": \"AIE2026の宿題の構成。「基礎（講義内容の確認）」「実装（自分でコードを書く）」「発展（調査や試行）」の3段階があり、どれか1つに取り組めばその回の宿題は完了。原則として採点はしない。\", \"related\": [\"answer-md\"]}]"
+    },
+    "lora_qlora": {
+      "requests": 2,
+      "tool_calls": 2,
+      "calls": [
+        {
+          "name": "search_glossary",
+          "args": {
+            "query": "LoRA"
+          },
+          "id": "lora"
+        },
+        {
+          "name": "search_glossary",
+          "args": {
+            "query": "QLoRA"
+          },
+          "id": "qlora"
+        }
+      ],
+      "output": "[{\"term\": \"LoRA\", \"lecture\": 2, \"definition\": \"事前学習済みの重みは固定したまま、重みの更新分を2つの小さな行列の積（低ランク行列）で表し、その小さな行列だけを学習するPEFT手法。学習するパラメータが少なく、学習結果（アダプタ）も小さいファイルで保存できる。本講座の第2回演習ではLoRAを扱う。\", \"related\": [\"peft\", \"lora-rank\", \"qlora\"]}, {\"term\": \"ランク（LoRAのr）\", \"lecture\": 2, \"definition\": \"LoRAで使う低ランク行列の大きさを決めるハイパーパラメータ。大きいほど表現力が上がるが、学習するパラメータとメモリも増える。\", \"related\": [\"lora\"]}, {\"term\": \"QLoRA\", \"lecture\": 2, \"definition\": \"ベースモデルの重みを4ビットなどに量子化してメモリを節約したうえで、LoRAで学習する手法。より大きなモデルを小さなGPUで扱える。本講座の第2回演習ではモデルがGPUに載るためLoRAで学習し、4ビットで読み込んだときのメモリと出力の違いを発展で比べる。\", \"related\": [\"lora\", \"quantization\"]}]\n[{\"term\": \"QLoRA\", \"lecture\": 2, \"definition\": \"ベースモデルの重みを4ビットなどに量子化してメモリを節約したうえで、LoRAで学習する手法。より大きなモデルを小さなGPUで扱える。本講座の第2回演習ではモデルがGPUに載るためLoRAで学習し、4ビットで読み込んだときのメモリと出力の違いを発展で比べる。\", \"related\": [\"lora\", \"quantization\"]}, {\"term\": \"LoRA\", \"lecture\": 2, \"definition\": \"事前学習済みの重みは固定したまま、重みの更新分を2つの小さな行列の積（低ランク行列）で表し、その小さな行列だけを学習するPEFT手法。学習するパラメータが少なく、学習結果（アダプタ）も小さいファイルで保存できる。本講座の第2回演習ではLoRAを扱う。\", \"related\": [\"peft\", \"lora-rank\", \"qlora\"]}]"
+    },
+    "quiz": {
+      "requests": 2,
+      "tool_calls": 1,
+      "calls": [
+        {
+          "name": "make_quiz",
+          "args": {
+            "lecture": 2
+          },
+          "id": "quiz"
+        }
+      ],
+      "output": "{\"question\": \"「学習率」の意味は？\", \"answer\": \"1回の更新でパラメータをどれだけ動かすかを決めるハイパーパラメータ。大きすぎると学習が不安定になり、小さすぎると進みが遅い。\"}"
+    }
+  },
+  "approval": {
+    "approved": {
+      "directory_exists_before_approval": false,
+      "reply": "y",
+      "saved_file_count": 1,
+      "saved_records": [
+        {
+          "lecture": 3,
+          "content": "エージェントでは、モデルがツール呼び出しを要求し、プログラムが承認後に実行する。",
+          "saved_at": "2026-11-04T20:07:55.625206+00:00"
+        }
+      ],
+      "requests": 2,
+      "tool_calls": 1,
+      "calls": [
+        {
+          "name": "save_learning_log",
+          "args": {
+            "lecture": 3,
+            "content": "エージェントでは、モデルがツール呼び出しを要求し、プログラムが承認後に実行する。"
+          },
+          "id": "save-approved"
+        }
+      ],
+      "output": "{\"status\": \"saved\", \"path\": \"learning_log/20261104T200755625206Z_14adf0c269e84df5bd2b72f5c0af2f22.json\", \"lecture\": 3, \"content\": \"エージェントでは、モデルがツール呼び出しを要求し、プログラムが承認後に実行する。\", \"saved_at\": \"2026-11-04T20:07:55.625206+00:00\"}"
+    },
+    "denied": {
+      "directory_exists_before_approval": false,
+      "reply": "n",
+      "saved_file_count": 0,
+      "saved_records": [],
+      "requests": 2,
+      "tool_calls": 0,
+      "calls": [
+        {
+          "name": "save_learning_log",
+          "args": {
+            "lecture": 3,
+            "content": "エージェントでは、モデルがツール呼び出しを要求し、プログラムが承認後に実行する。"
+          },
+          "id": "save-denied"
+        }
+      ],
+      "output": "The tool call was denied."
+    },
+    "empty": {
+      "directory_exists_before_approval": false,
+      "reply": "",
+      "saved_file_count": 0,
+      "saved_records": [],
+      "requests": 2,
+      "tool_calls": 0,
+      "calls": [
+        {
+          "name": "save_learning_log",
+          "args": {
+            "lecture": 3,
+            "content": "エージェントでは、モデルがツール呼び出しを要求し、プログラムが承認後に実行する。"
+          },
+          "id": "save-empty"
+        }
+      ],
+      "output": "The tool call was denied."
+    }
+  }
+}

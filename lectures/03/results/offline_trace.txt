@@ -1,0 +1,112 @@
+APIなしの検証。以下のツール呼び出しはFunctionModelで固定しています。
+モデルに見えているツール: 4 個
+
+[search_glossary]
+  講座の用語集から用語を検索し、定義と、どの回で扱うかを返す。
+
+  AIエンジニアリングの用語や、この講座（AIE2026）に固有の言葉について
+  答える前に使うこと。query には調べたい用語を1つだけ入れる（例: "LoRA"）。
+  引数: {"query": {"type": "string"}}
+
+[get_lecture_summary]
+  指定した回（1始まりの整数）の講義の要点を返す。
+
+  「第3回では何を学ぶ？」のように、回の内容や関係を聞かれたときに使う。
+  引数: {"lecture": {"type": "integer"}}
+
+[make_quiz]
+  指定した回の用語から1つを選び、確認問題と答えを返す。
+
+  「第2回の確認問題を出して」のように、復習用の問題を求められたときに使う。
+  lecture には講義の回を1始まりの整数で指定する。
+  引数: {"lecture": {"type": "integer"}}
+
+[save_learning_log]
+  利用者が保存を依頼した学習内容を learning_log/ にJSONで新規保存する。
+
+  「第3回で学んだことを記録して」のように、学習記録の保存を明示的に
+  求められたときに使う。lecture は1始まりの講義回、content は保存する
+  学習内容。内容が曖昧なら先に利用者に確認する。呼び出しはCLIでの承認待ちに
+  なり、利用者が承認した場合だけ実行される。保存先と日時はプログラムが決める。
+  引数: {"lecture": {"type": "integer"}, "content": {"type": "string"}}
+
+=== homework_levels ===
+[{"term": "宿題の3レベル", "lecture": 1, "definition": "AIE2026の宿題の構成。「基礎（講義内容の確認）」「実装（自分でコードを書く）」「発展（調査や試行）」の3段階があり、どれか1つに取り組めばその回の宿題は完了。原則として採点はしない。", "related": ["answer-md"]}]
+
+--- trace ---
+[tool call]   search_glossary({'query': '3レベル'})
+[tool return] search_glossary -> [{"term": "宿題の3レベル", "lecture": 1, "definition": "AIE2026の宿題の構成。「基礎（講義内容の確認）」「実装（自分でコードを書く）」「発展（調査や試行）」の3段階があり、どれか1つに取り組…
+[usage] RunUsage(input_tokens=113, output_tokens=21, requests=2, tool_calls=1)
+
+=== lora_qlora ===
+[{"term": "LoRA", "lecture": 2, "definition": "事前学習済みの重みは固定したまま、重みの更新分を2つの小さな行列の積（低ランク行列）で表し、その小さな行列だけを学習するPEFT手法。学習するパラメータが少なく、学習結果（アダプタ）も小さいファイルで保存できる。本講座の第2回演習ではLoRAを扱う。", "related": ["peft", "lora-rank", "qlora"]}, {"term": "ランク（LoRAのr）", "lecture": 2, "definition": "LoRAで使う低ランク行列の大きさを決めるハイパーパラメータ。大きいほど表現力が上がるが、学習するパラメータとメモリも増える。", "related": ["lora"]}, {"term": "QLoRA", "lecture": 2, "definition": "ベースモデルの重みを4ビットなどに量子化してメモリを節約したうえで、LoRAで学習する手法。より大きなモデルを小さなGPUで扱える。本講座の第2回演習ではモデルがGPUに載るためLoRAで学習し、4ビットで読み込んだときのメモリと出力の違いを発展で比べる。", "related": ["lora", "quantization"]}]
+[{"term": "QLoRA", "lecture": 2, "definition": "ベースモデルの重みを4ビットなどに量子化してメモリを節約したうえで、LoRAで学習する手法。より大きなモデルを小さなGPUで扱える。本講座の第2回演習ではモデルがGPUに載るためLoRAで学習し、4ビットで読み込んだときのメモリと出力の違いを発展で比べる。", "related": ["lora", "quantization"]}, {"term": "LoRA", "lecture": 2, "definition": "事前学習済みの重みは固定したまま、重みの更新分を2つの小さな行列の積（低ランク行列）で表し、その小さな行列だけを学習するPEFT手法。学習するパラメータが少なく、学習結果（アダプタ）も小さいファイルで保存できる。本講座の第2回演習ではLoRAを扱う。", "related": ["peft", "lora-rank", "qlora"]}]
+
+--- trace ---
+[tool call]   search_glossary({'query': 'LoRA'})
+[tool call]   search_glossary({'query': 'QLoRA'})
+[tool return] search_glossary -> [{"term": "LoRA", "lecture": 2, "definition": "事前学習済みの重みは固定したまま、重みの更新分を2つの小さな行列の積（低ランク行列）で表し、その小さな行列だけを学習するPEFT手法。学習するパラ…
+[tool return] search_glossary -> [{"term": "QLoRA", "lecture": 2, "definition": "ベースモデルの重みを4ビットなどに量子化してメモリを節約したうえで、LoRAで学習する手法。より大きなモデルを小さなGPUで扱える。本講座の第2…
+[usage] RunUsage(input_tokens=163, output_tokens=81, requests=2, tool_calls=2)
+
+=== quiz ===
+{"question": "「学習率」の意味は？", "answer": "1回の更新でパラメータをどれだけ動かすかを決めるハイパーパラメータ。大きすぎると学習が不安定になり、小さすぎると進みが遅い。"}
+
+--- trace ---
+[tool call]   make_quiz({'lecture': 2})
+[tool return] make_quiz -> {"question": "「学習率」の意味は？", "answer": "1回の更新でパラメータをどれだけ動かすかを決めるハイパーパラメータ。大きすぎると学習が不安定になり、小さすぎると進みが遅い。"}…
+[usage] RunUsage(input_tokens=108, output_tokens=14, requests=2, tool_calls=1)
+
+=== approved ===
+
+[承認待ち] save_learning_log
+{
+  "lecture": 3,
+  "content": "エージェントでは、モデルがツール呼び出しを要求し、プログラムが承認後に実行する。"
+}
+保存先: learning_log/（ファイル名と保存日時は承認後に自動生成）
+この内容を保存しますか？ [y/N]: y
+[approval] save_learning_log (save-approved): approved
+{"status": "saved", "path": "learning_log/20261104T200755625206Z_14adf0c269e84df5bd2b72f5c0af2f22.json", "lecture": 3, "content": "エージェントでは、モデルがツール呼び出しを要求し、プログラムが承認後に実行する。", "saved_at": "2026-11-04T20:07:55.625206+00:00"}
+
+--- trace ---
+[tool call]   save_learning_log({'lecture': 3, 'content': 'エージェントでは、モデルがツール呼び出しを要求し、プログラムが承認後に実行する。'})
+[tool return] save_learning_log -> {"status": "saved", "path": "learning_log/20261104T200755625206Z_14adf0c269e84df5bd2b72f5c0af2f22.json", "lecture": 3, "…
+[usage] RunUsage(input_tokens=119, output_tokens=31, requests=2, tool_calls=1)
+[state] 保存されたJSONファイル: 1 件
+
+=== denied ===
+
+[承認待ち] save_learning_log
+{
+  "lecture": 3,
+  "content": "エージェントでは、モデルがツール呼び出しを要求し、プログラムが承認後に実行する。"
+}
+保存先: learning_log/（ファイル名と保存日時は承認後に自動生成）
+この内容を保存しますか？ [y/N]: n
+[approval] save_learning_log (save-denied): denied
+The tool call was denied.
+
+--- trace ---
+[tool call]   save_learning_log({'lecture': 3, 'content': 'エージェントでは、モデルがツール呼び出しを要求し、プログラムが承認後に実行する。'})
+[tool return] save_learning_log -> The tool call was denied.…
+[usage] RunUsage(input_tokens=108, output_tokens=20, requests=2)
+[state] 保存されたJSONファイル: 0 件
+
+=== empty ===
+
+[承認待ち] save_learning_log
+{
+  "lecture": 3,
+  "content": "エージェントでは、モデルがツール呼び出しを要求し、プログラムが承認後に実行する。"
+}
+保存先: learning_log/（ファイル名と保存日時は承認後に自動生成）
+この内容を保存しますか？ [y/N]:
+[approval] save_learning_log (save-empty): denied
+The tool call was denied.
+
+--- trace ---
+[tool call]   save_learning_log({'lecture': 3, 'content': 'エージェントでは、モデルがツール呼び出しを要求し、プログラムが承認後に実行する。'})
+[tool return] save_learning_log -> The tool call was denied.…
+[usage] RunUsage(input_tokens=108, output_tokens=20, requests=2)
+[state] 保存されたJSONファイル: 0 件
