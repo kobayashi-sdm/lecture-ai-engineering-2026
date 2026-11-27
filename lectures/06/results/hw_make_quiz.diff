@@ -1,0 +1,89 @@
+diff --git a/app/mcp_server.py b/app/mcp_server.py
+index 1523afc..bc9dc31 100644
+--- a/app/mcp_server.py
++++ b/app/mcp_server.py
+@@ -29,6 +29,9 @@ server.tool()(tools.search_glossary)
+ 
+ # TODO(宿題・基礎): get_lecture_summary も公開しよう
+ 
++# 宿題（実装）: 第3回で作った make_quiz も公開する。範囲外の回では理由と出題できる回を返す
++server.tool()(tools.make_quiz)
++
+ 
+ def main() -> None:
+     parser = argparse.ArgumentParser(description="用語集 MCP サーバー")
+diff --git a/app/tools.py b/app/tools.py
+index 882f9f0..b212a51 100644
+--- a/app/tools.py
++++ b/app/tools.py
+@@ -5,6 +5,7 @@
+ """
+ 
+ import json
++import random
+ from functools import cache
+ from pathlib import Path
+ 
+@@ -81,6 +82,33 @@ def get_lecture_summary(lecture: int) -> str:
+     return path.read_text(encoding="utf-8")
+ 
+ 
++def make_quiz(lecture: int) -> str:
++    """指定した回の用語から1つを選び、確認問題と答えを返す。
++
++    「第2回の確認問題を出して」のように、復習用の問題を求められたときに使う。
++    lecture には講義の回を1始まりの整数で指定する。
++    """
++    # 第6回 宿題（実装）: 範囲外の回では、理由と出題できる回を返し、モデルが利用者に伝えられるようにする
++    available = sorted({entry["lecture"] for entry in load_glossary()})
++    choices = "、".join(f"第{n}回" for n in available)
++    if lecture < 1:
++        return json.dumps(
++            {"error": f"lecture は1以上の整数で指定してください（受け取った値: {lecture}）。出題できる回: {choices}"},
++            ensure_ascii=False,
++        )
++    entries = [entry for entry in load_glossary() if entry["lecture"] == lecture]
++    if not entries:
++        return json.dumps(
++            {"error": f"第{lecture}回の用語は用語集にないため、出題できません。出題できる回: {choices}"},
++            ensure_ascii=False,
++        )
++    entry = random.choice(entries)
++    return json.dumps(
++        {"lecture": lecture, "question": f"「{entry['term']}」の意味は？", "answer": entry["definition"]},
++        ensure_ascii=False,
++    )
++
++
+ def search_materials(query: str) -> str:
+     """第1〜3回の本講義資料を検索し、関連ページの本文・タイトル・ページ番号を返す。
+ 
+diff --git a/tests/test_mcp_server.py b/tests/test_mcp_server.py
+index 05e09c5..81da7fe 100644
+--- a/tests/test_mcp_server.py
++++ b/tests/test_mcp_server.py
+@@ -89,3 +89,24 @@ def test_config_mistakes_are_reported_in_words(tmp_path, text, expected):
+     path.write_text(text, encoding="utf-8")
+     with pytest.raises(ConfigError, match=expected):
+         read_config(path)
++
++
++
++QUIZ_TOOL = "glossary_make_quiz"
++
++
++def test_quiz_tool_is_exposed(tmp_path):
++    """宿題（実装）: make_quiz が MCP サーバーから公開されている。"""
++    model = TestModel(call_tools=[])
++    build_mcp_agent(_glossary_only_config(tmp_path)).run_sync("ツール一覧", model=model)
++    assert QUIZ_TOOL in {t.name for t in model.last_model_request_parameters.function_tools}
++
++
++@pytest.mark.parametrize(("lecture", "expected"), [(99, "第99回の用語は用語集にない"), (0, "1以上の整数")])
++def test_quiz_out_of_range_says_why_and_what_is_available(lecture, expected):
++    """宿題（実装）: 範囲外の回では、理由と出題できる回を返す。"""
++    from app.tools import make_quiz
++
++    error = json.loads(make_quiz(lecture))["error"]
++    assert expected in error
++    assert "出題できる回: 第1回" in error

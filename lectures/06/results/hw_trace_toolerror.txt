@@ -1,0 +1,24 @@
+### raise ToolError 版: 第99回のクイズを作って
+[11/27/26 10:09:40] INFO     Tool 'make_quiz' failed: 'Error       server.py:453
+                             executing tool make_quiz:                          
+                             第99回の用語は用語集にないため、出題               
+                             できません。出題できる回:                          
+                             第1回、第2回、第3回、第4回、第6回'                 
+[server] glossary: コマンドで起動（uv run python -m app.mcp_server）
+[model] gemini-3.5-flash-lite
+[tools] MCP サーバー（app/mcp_servers.json）
+申し訳ありません。第99回という回は用語集に存在しないため、確認問題を作成することができません。
+
+現在、クイズを作成できるのは以下の回です。
+- 第1回
+- 第2回
+- 第3回
+- 第4回
+- 第6回
+
+どの回の確認問題をご希望でしょうか？
+
+--- trace ---
+[tool call]   glossary_make_quiz({'lecture': 99})
+[tool error]  glossary_make_quiz -> Error executing tool make_quiz: 第99回の用語は用語集にないため、出題できません。出題できる回: 第1回、第2回、第3回、第4回、第6回
+[usage] 入力 847 tokens / 出力 88 tokens / モデル応答 2 回

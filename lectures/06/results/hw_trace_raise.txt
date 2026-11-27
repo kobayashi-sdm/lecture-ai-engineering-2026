@@ -1,0 +1,21 @@
+### raise 版（ValueError に同じ文を入れる）: 第99回のクイズを作って
++        raise ValueError(f"第{lecture}回の用語は用語集にないため、出題できません。出題できる回: {choices}")
+[11/27/26 10:09:16] ERROR    Tool 'make_quiz' raised an unexpected server.py:455
+                             exception                                          
+                             ValueError:                                        
+                             第99回の用語は用語集にないため、出題               
+                             できません。出題できる回:                          
+                             第1回、第2回、第3回、第4回、第6回                  
+                             The above exception was the direct                 
+                             cause of the following exception:                  
+                             UnexpectedToolError: Error executing               
+                             tool make_quiz                                     
+[server] glossary: コマンドで起動（uv run python -m app.mcp_server）
+[model] gemini-3.5-flash-lite
+[tools] MCP サーバー（app/mcp_servers.json）
+指定された第99回は、現在の講座の範囲外（または存在しない回）のため、確認問題を作成することができません。
+何か他の回（例: 第1回〜第N回など）の確認問題をご希望の場合は、該当する回を指定してお知らせください！
+--- trace ---
+[tool call]   glossary_make_quiz({'lecture': 99})
+[tool error]  glossary_make_quiz -> Error executing tool make_quiz
+[usage] 入力 806 tokens / 出力 76 tokens / モデル応答 2 回
